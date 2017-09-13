@@ -1,3 +1,5 @@
+<?php setcookie('pseudo', 'Cyril', time() + 365*24*3600, null, null, false, true);?>
+
 <!DOCTYPE html>
 <html>
 
@@ -16,7 +18,7 @@ form {
     <form action="minichat_post.php" method="post">
         <p>
             <label for="pseudo">Pseudo</label> :
-            <input type="text" name="pseudo" id="pseudo" />
+            <input type="text" name="pseudo" id="pseudo" value="Cyril"/>
             <br />
             <label for="message">Message</label> :
             <input type="text" name="message" id="message" />
@@ -33,12 +35,8 @@ try {
 
 $reponse = $bdd->query('SELECT pseudo, message FROM minichat ORDER BY ID DESC LIMIT 0, 10');
 
-while ($donnees = $reponse->fetch())
-
-{
-
+while ($donnees = $reponse->fetch()) {
     echo '<p>','<bold>' . htmlspecialchars($donnees['pseudo']) . '</bold> : ' . htmlspecialchars($donnees['message']) . '</p>';
-
 }
 
 $reponse->closeCursor();
