@@ -1,13 +1,13 @@
 <?php
 
 try {
-    $bdd = new PDO('mysql:host=localhost;dbname=TP;harset=utf8', 'root', 'DarkShot666');
+    $bdd = new PDO('mysql:host=localhost;dbname=TP;charset=utf8', 'root', 'DarkShot666');
 } catch (Exception $e) {
     die('Erreur : '.$e->getMessage());
 }
 
 
-// Insertion du message à l'aide d'une requête préparée
+//
 
 $req = $bdd->prepare('INSERT INTO minichat (pseudo, message) VALUES(?, ?)');
 
