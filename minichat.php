@@ -1,4 +1,4 @@
-<?php setcookie('pseudo', 'Cyril', time() + 365*24*3600, null, null, false, true);?>
+<?php setcookie('pseudo', 'Cyril', time() + 60, null, null, false, true);?>
 
 <!DOCTYPE html>
 <html>
@@ -27,16 +27,22 @@ form {
         </p>
     </form>
 <?php
+$jour = date('d');
+$mois = date ('m');
+$annee = date ('y');
+$heure = date('H');
+$minute = date('i');
 try {
     $bdd = new PDO('mysql:host=localhost;dbname=TP;charset=utf8', 'root', 'DarkShot666');
 } catch (Exception $e) {
     die('Erreur : '.$e->getMessage());
 }
 
-$reponse = $bdd->query('SELECT pseudo, message FROM minichat ORDER BY ID DESC LIMIT 0, 10');
+
+$reponse = $bdd->query('SELECT pseudo, message, DATE_FORMAT(date, \'%d/%m/%Y à %Hh%imin%ss\') AS date_fr FROM minichat ORDER BY ID DESC LIMIT 0, 10');
 
 while ($donnees = $reponse->fetch()) {
-    echo '<p>','<bold>' . htmlspecialchars($donnees['pseudo']) . '</bold> : ' . htmlspecialchars($donnees['message']) . '</p>';
+    echo '<p><center> Le ' . $donnees['date_fr'].' ','<bold>' . htmlspecialchars($donnees['pseudo']) . '</bold> : ' . htmlspecialchars($donnees['message']) . '</p>';
 }
 
 $reponse->closeCursor();
